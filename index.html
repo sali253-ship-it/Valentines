@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Valentine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="grain" aria-hidden="true"></div>
+        <div class="content">
+          <p class="eyebrow">For someone special</p>
+          <h1>Will you be my valentine?</h1>
+          <img
+            class="valentine-gif"
+            src="https://media.tenor.com/eC0FtYrtP_gAAAAM/happy-valentines-day-winnie-the-pooh.gif"
+            alt="Winnie the Pooh wishing happy Valentine's Day"
+          />
+          <p class="subhead">
+            A tiny note wrapped in stardust, warm lights, and all the courage I
+            could find.
+          </p>
+          <div class="actions">
+            <button class="primary yes-button" type="button">Yes</button>
+            <button class="ghost no-button" type="button">No</button>
+          </div>
+          <div class="yay" aria-live="polite">
+            <p>YAY I LOVE YOU !</p>
+            <img
+              src="https://media.tenor.com/SAWZwe69-sQAAAAM/mar%C3%A7o.gif"
+              alt="Celebration gif"
+            />
+          </div>
+        </div>
+      </section>
+      <div class="floaters" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </main>
+    <script>
+      const hero = document.querySelector(".hero");
+      const actions = document.querySelector(".actions");
+      const noButton = document.querySelector(".no-button");
+      const yesButton = document.querySelector(".yes-button");
+      const yay = document.querySelector(".yay");
+
+      const placeNoButton = () => {
+        if (!actions || !noButton) {
+          return;
+        }
+
+        const actionsRect = actions.getBoundingClientRect();
+        const buttonRect = noButton.getBoundingClientRect();
+        const padding = 20;
+        const maxLeft = actionsRect.width - buttonRect.width - padding;
+        const maxTop = actionsRect.height - buttonRect.height - padding;
+        const nextLeft = Math.max(
+          padding,
+          Math.random() * Math.max(maxLeft, padding)
+        );
+        const nextTop = Math.max(
+          padding,
+          Math.random() * Math.max(maxTop, padding)
+        );
+
+        noButton.style.right = "auto";
+        noButton.style.left = `${nextLeft}px`;
+        noButton.style.top = `${nextTop}px`;
+      };
+
+      const pinNoButton = () => {
+        if (!actions || !noButton) {
+          return;
+        }
+
+        const actionsRect = actions.getBoundingClientRect();
+        const buttonRect = noButton.getBoundingClientRect();
+        const left = buttonRect.left - actionsRect.left;
+        const top = buttonRect.top - actionsRect.top;
+
+        noButton.style.right = "auto";
+        noButton.style.left = `${left}px`;
+        noButton.style.top = `${top}px`;
+      };
+
+      window.addEventListener("load", () => {
+        pinNoButton();
+      });
+
+      window.addEventListener("resize", () => {
+        pinNoButton();
+      });
+
+      noButton?.addEventListener("mouseenter", placeNoButton);
+      yesButton?.addEventListener("click", () => {
+        if (yay) {
+          yay.classList.add("visible");
+        }
+      });
+    </script>
+  </body>
+</html>
